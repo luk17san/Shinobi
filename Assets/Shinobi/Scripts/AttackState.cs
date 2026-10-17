@@ -32,17 +32,17 @@ namespace Shinobi
             activeEnd = windupTime + attack.activeDuration;
             end = activeEnd + attack.recovery;
             bufferTime = motor.Combat.ComboBuffer;
-            motor.Combat.BeginAttack(motor.Facing, attack);
+            motor.Combat.BeginAttack(motor.Facing, attack, motor.Combat.GetAnimation(index));
             strike = new StrikeState(index + 1);
             SetChild(strike);
         }
 
         protected override void OnTick(float dt)
         {
+            if (!motor.Combat.IsAttacking) { Complete = true; return; }
             elapsed += dt;
             // The press starting this strike must not also queue the next one.
-            float windowStart = System.Math.Max(activeEnd, end - bufferTime);
-            if (!firstTick && index + 1 < comboLength && motor.Input.Attack && elapsed >= windowStart && elapsed <= end)
+            if (!firstTick && index + 1 < comboLength && motor.Input.Attack && elapsed <= bufferTime)
                 queued = true;
             firstTick = false;
             // Even a long frame crossing several phases resolves the strike once.
@@ -50,9 +50,11 @@ namespace Shinobi
             {
                 hitResolved = true;
                 motor.Combat.ResolveHit();
+                motor.Combat.PlayAttackEffect(index);
             }
-            Complete = elapsed >= end;
-            if (Complete && queued)
+            else if (elapsed >= windupTime && elapsed < activeEnd) motor.Combat.ResolveHit();
+            Complete = elapsed >= System.Math.Max(end, index + 1 < comboLength ? bufferTime : end);
+            if (elapsed >= end && queued)
             {
                 StartStrike(index + 1);
                 return;

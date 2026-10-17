@@ -70,7 +70,7 @@ namespace Shinobi.Editor
             if (!EditorSceneManager.SaveScene(scene)) throw new IOException("Nie zapisano areny walki.");
             AssetDatabase.SaveAssets();
             Selection.activeGameObject = player;
-            Debug.Log("Shinobi: trening walki gotowy. J/LPM lub zachodni przycisk pada: cios.");
+            Debug.Log("Shinobi: trening walki gotowy. Domyslnie G lub zachodni przycisk pada: cios. Profil i jutsu: menu Shinobi/Etap 4.");
         }
 
         private static void PreparePlayer(GameObject player, bool recordUndo)

@@ -1,0 +1,38 @@
+[
+  {
+    "lod": 0,
+    "vertices": 22429,
+    "triangles": 45000,
+    "bones": 56,
+    "height": 1.899743031914113,
+    "max_influences": 4,
+    "unweighted": 0,
+    "max_weight_sum_error": 1.4901161193847656e-07,
+    "uv_layers": 1,
+    "armature_modifier": true
+  },
+  {
+    "lod": 1,
+    "vertices": 8929,
+    "triangles": 18000,
+    "bones": 56,
+    "height": 1.8983014405239373,
+    "max_influences": 4,
+    "unweighted": 0,
+    "max_weight_sum_error": 1.485095708630979e-07,
+    "uv_layers": 1,
+    "armature_modifier": true
+  },
+  {
+    "lod": 2,
+    "vertices": 3929,
+    "triangles": 8000,
+    "bones": 56,
+    "height": 1.8977191152516752,
+    "max_influences": 4,
+    "unweighted": 0,
+    "max_weight_sum_error": 1.4156103134155273e-07,
+    "uv_layers": 1,
+    "armature_modifier": true
+  }
+]

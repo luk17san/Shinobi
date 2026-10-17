@@ -16,6 +16,8 @@ namespace Shinobi.Editor
 
         private static void GenerateIfMissing()
         {
+            // Batch validation must not create a scene during Test Runner startup.
+            if (Application.isBatchMode) return;
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling) return;
             if (!File.Exists(ScenePath)) Build();
         }

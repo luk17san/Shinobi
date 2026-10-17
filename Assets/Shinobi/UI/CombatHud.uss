@@ -1,0 +1,60 @@
+.combat-hud { position: absolute; left: 0; right: 0; top: 0; bottom: 0; color: rgb(241, 236, 214); }
+.hud-frame { padding: 10px; }
+.hud-heading { color: rgb(255, 235, 188); font-size: 12px; -unity-font-style: bold; margin: 0; white-space: nowrap; }
+.hud-small { font-size: 10px; color: rgb(230, 229, 209); -unity-text-align: middle-left; }
+.centered { -unity-text-align: middle-center; }
+.player-card { position: absolute; top: 22px; left: 22px; width: 340px; height: 98px; flex-direction: row; }
+.portrait { width: 62px; height: 68px; flex-shrink: 0; margin-right: 8px; border-top-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-width: 1px; border-top-color: rgb(213, 173, 92); border-bottom-color: rgb(213, 173, 92); border-left-color: rgb(213, 173, 92); border-right-color: rgb(213, 173, 92); border-top-left-radius: 32px; border-top-right-radius: 32px; border-bottom-left-radius: 32px; border-bottom-right-radius: 32px; background-color: rgb(14, 30, 39); -unity-background-scale-mode: scale-to-fit; }
+.player-stats { flex-grow: 1; }
+.stat-row { flex-direction: row; height: 18px; align-items: center; }
+.stat-name { width: 79px; font-size: 8px; color: rgb(245, 241, 223); margin: 0; flex-shrink: 0; }
+.stat-value { width: 52px; font-size: 10px; color: rgb(255, 251, 235); -unity-text-align: middle-right; margin-left: 5px; flex-shrink: 0; }
+.stat-track { flex-grow: 1; height: 9px; min-width: 30px; background-color: rgb(7, 16, 21); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; overflow: hidden; }
+.stat-fill { height: 100%; width: 100%; }
+.hp-fill { background-color: rgb(239, 64, 75); }
+.chakra-fill { background-color: rgb(44, 205, 234); }
+.stamina-fill { background-color: rgb(249, 202, 69); }
+.hud-icon { width: 15px; height: 16px; margin-right: 3px; flex-shrink: 0; }
+.target-card { position: absolute; top: 22px; right: 22px; width: 290px; height: 88px; flex-direction: row; }
+.target-stats { flex-grow: 1; margin-right: 8px; }
+.target-card .portrait { margin: 0; width: 55px; height: 62px; }
+.target-card .hud-heading { -unity-text-align: middle-right; }
+.target-hp-label { font-size: 10px; width: 22px; }
+.target-status { font-size: 10px; color: rgb(246, 203, 92); -unity-text-align: middle-right; white-space: normal; }
+.weapon-card { position: absolute; left: 22px; bottom: 22px; width: 246px; height: 80px; flex-direction: row; align-items: center; }
+.weapon-icon { width: 52px; height: 58px; margin-right: 8px; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit; }
+.weapon-info { flex-grow: 1; }
+.weapon-info .hud-heading { white-space: normal; font-size: 11px; }
+.key-row { flex-direction: row; margin-top: 8px; align-items: center; }
+.keycap { padding: 2px 5px; margin-right: 6px; font-size: 11px; -unity-text-align: middle-center; color: rgb(245, 244, 222); background-color: rgb(19, 35, 44); border-top-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-width: 1px; border-top-color: rgb(204, 182, 135); border-bottom-color: rgb(204, 182, 135); border-left-color: rgb(204, 182, 135); border-right-color: rgb(204, 182, 135); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; }
+.jutsu-card { position: absolute; left: 50%; margin-left: -164px; bottom: 18px; width: 328px; height: 108px; }
+.jutsu-main { flex-direction: row; justify-content: center; align-items: center; height: 56px; }
+.seal-slots { flex-direction: row; justify-content: center; }
+.seal-slot { align-items: center; justify-content: center; width: 45px; height: 50px; margin: 0 5px; border-bottom-width: 2px; border-bottom-color: rgb(101, 111, 98); }
+.seal-slot .hud-icon { width: 26px; height: 26px; margin: 0; }
+.seal-slot .keycap { padding: 0 5px; font-size: 9px; margin: 0; }
+.seal-slot.entered { background-color: rgba(211, 173, 76, 0.23); border-bottom-color: rgb(255, 218, 116); }
+.seal-slot.wrong { background-color: rgba(224, 53, 55, 0.25); border-bottom-color: rgb(241, 68, 75); }
+.jutsu-cost { margin-left: 8px; padding-left: 8px; border-left-width: 1px; border-left-color: rgb(135, 116, 70); align-items: center; }
+.jutsu-cost .hud-icon { width: 20px; height: 24px; }
+.cost-value { font-size: 12px; -unity-text-align: middle-center; color: rgb(248, 241, 213); }
+.jutsu-hint { font-size: 8px; color: rgb(228, 230, 215); -unity-text-align: middle-center; white-space: normal; }
+.dash-card { position: absolute; right: 22px; bottom: 22px; width: 234px; height: 80px; flex-direction: row; align-items: center; }
+.dash-emblem { width: 55px; height: 45px; margin-right: 10px; }
+.dash-info { flex-grow: 1; }
+.dash-status { font-size: 11px; -unity-font-style: bold; color: rgb(103, 231, 146); margin-top: 3px; }
+.dash-status.unavailable { color: rgb(240, 179, 103); }
+.dash-keys { font-size: 11px; color: rgb(239, 238, 217); margin-top: 4px; }
+.dash-cost { align-items: center; margin-left: 8px; padding-left: 8px; border-left-width: 1px; border-left-color: rgb(135, 116, 70); }
+.dash-cost .hud-icon { width: 18px; height: 24px; }
+.gamebar { top: 22px; left: 50%; margin-left: -88px; right: auto; bottom: auto; width: 176px; padding: 6px; background-color: rgba(13, 30, 35, 0.94); border-bottom-width: 1px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-color: rgb(189, 151, 73); border-top-color: rgb(189, 151, 73); border-left-color: rgb(189, 151, 73); border-right-color: rgb(189, 151, 73); }
+.gamebar .mode { font-size: 10px; margin-bottom: 3px; }
+.gamebar Button { height: 21px; width: 64px; align-self: center; font-size: 10px; margin: 0; padding: 0; }
+.training-toggle { position: absolute; bottom: 106px; left: 22px; height: 22px; width: 98px; font-size: 10px; margin: 0; padding: 0; background-color: rgba(17, 31, 36, 0.92); }
+.training-drawer { position: absolute; bottom: 134px; left: 22px; width: 286px; display: none; }
+.training-drawer Button { height: 28px; font-size: 11px; margin-bottom: 5px; }
+.training-tests { flex-direction: row; }
+.training-tests Button { flex-grow: 1; width: 0; font-size: 10px; margin: 3px 2px 0 0; }
+#PlayerPortrait { -unity-background-image-tint-color: rgb(128, 220, 255); }
+.weapon-icon { background-color: rgb(10, 24, 31); border-top-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-width: 1px; border-top-color: rgb(156, 132, 83); border-bottom-color: rgb(156, 132, 83); border-left-color: rgb(156, 132, 83); border-right-color: rgb(156, 132, 83); background-size: 135% 135%; background-position: center; }
+.gamebar { background-color: transparent; border-top-width: 0; border-bottom-width: 0; border-left-width: 0; border-right-width: 0; }

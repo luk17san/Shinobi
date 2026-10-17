@@ -1,0 +1,10 @@
+Unity validation status: NOT RUN — editor startup blocked by licensing IPC.
+
+Unity 2022.3.6f1: connection to LicenseClient channel refused; timed out after 60 seconds; exit code 199.
+Unity 6000.6.3f1: connection to LicenseClient channel refused; licensing initialization failed before project import; exit code 1.
+
+AzureShadowSetup.cs: static C# compilation against installed Unity 6000.6.3f1 reference assemblies PASSED. This confirms syntax and API references, not execution, prefab generation, import, Avatar validity or Play Mode.
+
+No Unity prefab or unitypackage is included as a prevalidated artifact. The supplied Editor command generates prefabs after import into a working Unity editor.
+
+Blender validation and FBX round-trip passed; see mesh_and_weights.json and fbx_reimport.json.

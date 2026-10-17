@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3460176383515033006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44dcbb7cec019e4baa57a59c630ed12, type: 3}
+  m_Name: Cios 1
+  m_EditorClassIdentifier: Assembly-CSharp::Shinobi.ShinobiAttackDefinition
+  attack:
+    level: 1
+    pushDistance: 0
+    hitHeight: 1.2
+    hitDepth: 0.8
+    hitCenterHeight: 1
+    damage: 20
+    windup: 0.12
+    activeDuration: 0.08
+    recovery: 0.25
+    reach: 1.3
+  animation: {fileID: -203655887218126122, guid: 1a4b1414c69cc2c4a94ce754c078d279, type: 3}
+  effect: {fileID: 0}
+--- !u!114 &-2212829047344443114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44dcbb7cec019e4baa57a59c630ed12, type: 3}
+  m_Name: Cios 3
+  m_EditorClassIdentifier: Assembly-CSharp::Shinobi.ShinobiAttackDefinition
+  attack:
+    level: 1
+    pushDistance: 1.5
+    hitHeight: 1.2
+    hitDepth: 0.8
+    hitCenterHeight: 1
+    damage: 35
+    windup: 0.18
+    activeDuration: 0.08
+    recovery: 0.4
+    reach: 1.6
+  animation: {fileID: 0}
+  effect: {fileID: 0}
+--- !u!114 &-1202162174846491414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44dcbb7cec019e4baa57a59c630ed12, type: 3}
+  m_Name: Cios 2
+  m_EditorClassIdentifier: Assembly-CSharp::Shinobi.ShinobiAttackDefinition
+  attack:
+    level: 1
+    pushDistance: 0
+    hitHeight: 1.2
+    hitDepth: 0.8
+    hitCenterHeight: 1
+    damage: 25
+    windup: 0.1
+    activeDuration: 0.08
+    recovery: 0.22
+    reach: 1.4
+  animation: {fileID: 0}
+  effect: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7ec91a3402ed1409fe73a9844df233, type: 3}
+  m_Name: Shuriken
+  m_EditorClassIdentifier: Assembly-CSharp::Shinobi.ShinobiWeaponDefinition
+  displayName: Shuriken
+  combo:
+  - {fileID: -3460176383515033006}
+  - {fileID: -1202162174846491414}
+  - {fileID: -2212829047344443114}
+  comboWindow: 0.5
+  visualPrefab: {fileID: 6012164745359341099, guid: a1fe887eabdb3834498fcf496c70fa5a, type: 3}
+  hudIcon: {fileID: 2800000, guid: ed2a3b383b7ca4e4782ca0d08247aef4, type: 3}
+  localPosition: {x: -0.035, y: 0.10500024, z: 0.025000038}
+  localEulerAngles: {x: 0, y: 90, z: 0}
+  localScale: {x: 1, y: 1, z: 1}
+  throwable: 1
+  throwing:
+    speed: 18
+    range: 15
+    damage: 20
+    cooldown: 0.7
+    windup: 0.24
+    recovery: 0.26
+    collisionRadius: 0.07
+    spin: 1
+    explosive: 0
+    explosionRadius: 1.5
+    explosionDamage: 40
+    animation: {fileID: -203655887218126122, guid: 1a4b1414c69cc2c4a94ce754c078d279, type: 3}
+    explosionEffect: {fileID: 0}

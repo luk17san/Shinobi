@@ -15,7 +15,10 @@ namespace Shinobi
         private bool flashing;
         public float CurrentHealth { get; private set; }
         public float MaxHealth => Mathf.Max(1f, maxHealth);
+        public bool TrainingAutoReset { get => trainingAutoReset; set => trainingAutoReset = value; }
         public bool Defeated => CurrentHealth <= 0f;
+        public event System.Action Damaged;
+        public event System.Action<float> DamageApplied;
 
         private void Awake()
         {
@@ -30,11 +33,18 @@ namespace Shinobi
                 flash.SetColor("_BaseColor", Color.white);
             }
         }
-        public void ResetHealth() { CurrentHealth = MaxHealth; resetAt = 0f; }
+        public void ResetHealth() {
+            CurrentHealth = MaxHealth; resetAt = 0f;
+            if (flashing && visual != null && original != null) visual.SetPropertyBlock(original);
+            flashing = false;
+        }
         public bool ApplyDamage(float amount)
         {
             if (Defeated || amount <= 0f) return false;
+            float applied = Mathf.Min(CurrentHealth, amount);
             CurrentHealth = Mathf.Max(0f, CurrentHealth - amount);
+            Damaged?.Invoke();
+            DamageApplied?.Invoke(applied);
             if (visual != null)
             {
                 visual.SetPropertyBlock(flash);
@@ -60,6 +70,7 @@ namespace Shinobi
         }
         private void OnGUI()
         {
+            if (!ShinobiGameSession.ShowGameplayHud || ShinobiCombatHud.IsActive) return;
             var camera = Camera.main;
             if (camera == null) return;
             var point = camera.WorldToScreenPoint(transform.position + Vector3.up * 2.6f);
@@ -69,3 +80,4 @@ namespace Shinobi
         }
     }
 }
+

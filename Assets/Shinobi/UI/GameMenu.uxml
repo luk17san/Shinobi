@@ -1,0 +1,64 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="GameMenu.uss" />
+    <Style src="CombatHud.uss" />
+    <ui:VisualElement name="Screen" class="screen" picking-mode="Ignore">
+        <ui:VisualElement name="CombatHud" class="combat-hud" picking-mode="Ignore">
+            <ui:VisualElement name="PlayerCard" class="hud-frame player-card" picking-mode="Ignore">
+                <ui:VisualElement name="PlayerPortrait" class="portrait" />
+                <ui:VisualElement class="player-stats">
+                    <ui:Label text="GRACZ" class="hud-heading" />
+                    <ui:VisualElement class="stat-row"><ui:VisualElement class="hud-icon heart" /><ui:Label text="HP" class="stat-name" /><ui:VisualElement class="stat-track"><ui:VisualElement name="HpFill" class="stat-fill hp-fill" /></ui:VisualElement><ui:Label name="HpValue" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:VisualElement class="hud-icon chakra" /><ui:Label text="CHAKRA" class="stat-name" /><ui:VisualElement class="stat-track"><ui:VisualElement name="ChakraFill" class="stat-fill chakra-fill" /></ui:VisualElement><ui:Label name="ChakraValue" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:VisualElement class="hud-icon stamina" /><ui:Label text="WYTRZYMAŁOŚĆ" class="stat-name" /><ui:VisualElement class="stat-track"><ui:VisualElement name="StaminaFill" class="stat-fill stamina-fill" /></ui:VisualElement><ui:Label name="StaminaValue" class="stat-value" /></ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="TargetCard" class="hud-frame target-card" picking-mode="Ignore">
+                <ui:VisualElement class="target-stats"><ui:Label name="TargetName" class="hud-heading" /><ui:VisualElement class="stat-row"><ui:VisualElement class="hud-icon heart" /><ui:Label text="HP" class="target-hp-label" /><ui:VisualElement class="stat-track"><ui:VisualElement name="TargetHpFill" class="stat-fill hp-fill" /></ui:VisualElement><ui:Label name="TargetHpValue" class="stat-value" /></ui:VisualElement><ui:Label name="TargetStatus" class="target-status" /></ui:VisualElement>
+                <ui:VisualElement name="TargetPortrait" class="portrait" />
+            </ui:VisualElement>
+            <ui:VisualElement name="WeaponCard" class="hud-frame weapon-card" picking-mode="Ignore">
+                <ui:VisualElement name="WeaponIcon" class="weapon-icon" />
+                <ui:VisualElement class="weapon-info"><ui:Label name="WeaponName" class="hud-heading" /><ui:VisualElement class="key-row"><ui:Label name="WeaponKey" text="Y" class="keycap" /><ui:Label name="WeaponActionHint" text="ZMIEŃ BROŃ" class="hud-small" /></ui:VisualElement></ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="JutsuCard" class="hud-frame jutsu-card" picking-mode="Ignore">
+                <ui:Label name="JutsuName" class="hud-heading centered" />
+                <ui:VisualElement class="jutsu-main"><ui:VisualElement name="SealSlots" class="seal-slots" /><ui:VisualElement class="jutsu-cost"><ui:VisualElement class="hud-icon chakra" /><ui:Label name="JutsuCost" class="cost-value" /></ui:VisualElement></ui:VisualElement>
+                <ui:Label name="JutsuHint" class="jutsu-hint" />
+            </ui:VisualElement>
+            <ui:VisualElement name="DashCard" class="hud-frame dash-card" picking-mode="Ignore">
+                <ui:VisualElement class="dash-emblem hud-icon speed" />
+                <ui:VisualElement class="dash-info"><ui:Label text="DASH" class="hud-heading" /><ui:Label name="DashStatus" class="dash-status" /><ui:Label text="A A / D D" class="dash-keys" /></ui:VisualElement>
+                <ui:VisualElement class="dash-cost"><ui:VisualElement class="hud-icon stamina" /><ui:Label name="DashCost" class="cost-value" /></ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Button name="TrainingToolsToggle" text="Ćwiczenia ▾" class="training-toggle" />
+            <ui:VisualElement name="TrainingDrawer" class="hud-frame training-drawer">
+                <ui:Label text="TRENING" class="hud-heading" />
+                <ui:Button name="ToggleSparring" text="Rozpocznij sparing" />
+                <ui:Button name="ResetPractice" text="Reset treningu" />
+                <ui:Label text="Test obrony · 25 obrażeń" class="hud-small" />
+                <ui:VisualElement class="training-tests"><ui:Button name="TestFront" text="Z przodu" /><ui:Button name="TestRear" text="Z tyłu" /><ui:Button name="TestJutsu" text="Jutsu" /></ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="GameBar" class="gamebar hud-frame">
+            <ui:Label name="Mode" class="mode" />
+            <ui:Button name="PauseButton" text="Esc Ⅱ" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Overlay" class="overlay">
+            <ui:VisualElement name="MenuPanel" class="menu-panel">
+                <ui:Label text="DROGA SHINOBI" class="eyebrow" />
+                <ui:Label name="Title" text="SHINOBI" class="title" />
+                <ui:Label name="Description" class="description" />
+                <ui:Button name="StartTraining" text="Swobodny trening" class="primary" />
+                <ui:Button name="StartDuel" text="Pojedynek z AI" />
+                <ui:Button name="Resume" text="Wznów" class="primary" />
+                <ui:Button name="Restart" text="Rewanż" />
+                <ui:Button name="ToMenu" text="Wróć do menu" />
+                <ui:Button name="Quit" text="Zakończ grę" class="quiet" />
+                <ui:Label text="A/D ruch · W skok · S kucanie · 2× A/D dash&#10;G cios · H rzut · J pieczęcie · Y broń · Esc pauza" class="controls" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
+
+
+

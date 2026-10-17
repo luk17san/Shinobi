@@ -1,0 +1,16 @@
+.screen { flex-grow: 1; }
+.overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(5, 15, 22, 0.65); }
+.menu-panel { width: 480px; max-width: 92%; padding: 28px; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(176, 143, 77); border-right-color: rgb(176, 143, 77); border-top-color: rgb(176, 143, 77); border-bottom-color: rgb(176, 143, 77); border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; background-color: rgba(17, 31, 36, 0.97); }
+.eyebrow { font-size: 13px; color: rgb(215, 183, 115); -unity-text-align: middle-center; margin-bottom: 8px; }
+.title { font-size: 38px; -unity-font-style: bold; color: rgb(255, 238, 195); -unity-text-align: middle-center; margin-bottom: 8px; }
+.description { font-size: 16px; color: rgb(215, 225, 222); -unity-text-align: middle-center; white-space: normal; margin-bottom: 20px; }
+Button { height: 46px; margin-bottom: 8px; font-size: 17px; color: rgb(235, 238, 225); background-color: rgb(43, 63, 65); border-top-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-width: 1px; border-top-color: rgb(93, 118, 111); border-bottom-color: rgb(93, 118, 111); border-left-color: rgb(93, 118, 111); border-right-color: rgb(93, 118, 111); }
+Button:hover, Button:focus { background-color: rgb(71, 94, 84); border-top-color: rgb(222, 186, 109); border-bottom-color: rgb(222, 186, 109); border-left-color: rgb(222, 186, 109); border-right-color: rgb(222, 186, 109); }
+Button.primary { background-color: rgb(150, 72, 47); }
+Button.primary:hover, Button.primary:focus { background-color: rgb(180, 92, 57); }
+Button.quiet { height: 34px; font-size: 14px; background-color: rgb(28, 43, 48); }
+.controls { font-size: 12px; color: rgb(169, 186, 179); -unity-text-align: middle-center; white-space: normal; margin-top: 12px; }
+.gamebar { position: absolute; bottom: 16px; right: 16px; width: 220px; padding: 8px; background-color: rgba(17, 31, 36, 0.94); }
+.gamebar Button { height: 34px; margin-bottom: 0; font-size: 14px; }
+.mode { color: rgb(235, 215, 162); font-size: 12px; -unity-text-align: middle-center; margin-bottom: 6px; }
+
