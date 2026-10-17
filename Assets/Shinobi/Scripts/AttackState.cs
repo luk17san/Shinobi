@@ -14,8 +14,10 @@ namespace Shinobi
 
         protected override void OnEnter()
         {
+            motor.Combat.SelectContext(!motor.Grounded ? motor.LongJumping ? ShinobiAttackContext.LongJump : ShinobiAttackContext.Airborne
+                : motor.Crouching ? ShinobiAttackContext.Crouching : ShinobiAttackContext.Standing);
             comboLength = motor.Combat.ComboLength;
-            motor.AllowMovement = false;
+            motor.AllowMovement = !motor.Grounded;
             StartStrike(0);
         }
 
@@ -66,6 +68,7 @@ namespace Shinobi
         protected override void OnExit()
         {
             motor.AllowMovement = true;
+            if (motor.Grounded && (motor.Combat.Context == ShinobiAttackContext.Airborne || motor.Combat.Context == ShinobiAttackContext.LongJump)) motor.Combat.CancelAttack();
             motor.Combat.EndAttack();
         }
 

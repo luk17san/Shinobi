@@ -27,6 +27,7 @@ namespace Shinobi
         [Range(0f, 100f)] public float maximumInterruptChance = 95f;
         [Min(0f)] public float drawSeparation = 2f;
         public ShinobiAttackDefinition[] combo = new ShinobiAttackDefinition[3];
+        public ShinobiContextCombos contextCombos = new ShinobiContextCombos();
         public ShinobiJutsuDefinition[] jutsu = new ShinobiJutsuDefinition[0];
     }
 }

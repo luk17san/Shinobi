@@ -108,7 +108,7 @@ namespace Shinobi
         private void UpdateTarget()
         {
             bool rival=session.IsDuel || session.opponent!=null && session.opponent.Running;
-            var target=rival && session.opponent!=null?session.opponent.GetComponent<ShinobiHealth>():session.trainingDummy!=null && session.trainingDummy.activeInHierarchy?session.trainingDummy.GetComponent<ShinobiHealth>():null;
+            var target=session.CurrentTarget;
             Visible("TargetCard",target!=null); if(target==null) return;
             Text("TargetName",rival?"RYWAL":"MANEKIN"); Value("TargetHpFill","TargetHpValue",target.CurrentHealth,target.MaxHealth);
             Text("TargetStatus",rival?session.opponent.Status:"");

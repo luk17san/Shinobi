@@ -23,7 +23,7 @@ MonoBehaviour:
     activeDuration: 0.08
     recovery: 0.25
     reach: 1.3
-  animation: {fileID: 0}
+  animation: {fileID: -203655887218126122, guid: 8fb09d18011dfe040beb030ed0e8841d, type: 3}
   effect: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -42,6 +42,11 @@ MonoBehaviour:
   - {fileID: -2644166537764083711}
   - {fileID: 6944309036584626720}
   - {fileID: 2123137899109587274}
+  contextCombos:
+    standing: {fileID: 11400000, guid: 0ea264a88d14baa4891b7646e7c5f24a, type: 2}
+    crouching: {fileID: 0}
+    airborne: {fileID: 0}
+    longJump: {fileID: 0}
   comboWindow: 0.5
   visualPrefab: {fileID: 7020327474133497582, guid: 0f36655be1d012349b9d0b737055bcb9, type: 3}
   hudIcon: {fileID: 2800000, guid: c917988ca99a8a64db45164013c83b26, type: 3}
@@ -86,7 +91,7 @@ MonoBehaviour:
     activeDuration: 0.08
     recovery: 0.4
     reach: 1.6
-  animation: {fileID: 0}
+  animation: {fileID: -203655887218126122, guid: 0e2b54e992257464db16647438d36ee4, type: 3}
   effect: {fileID: 0}
 --- !u!114 &6944309036584626720
 MonoBehaviour:
@@ -111,5 +116,5 @@ MonoBehaviour:
     activeDuration: 0.08
     recovery: 0.22
     reach: 1.4
-  animation: {fileID: 0}
+  animation: {fileID: -203655887218126122, guid: 8fb09d18011dfe040beb030ed0e8841d, type: 3}
   effect: {fileID: 0}

@@ -14,6 +14,9 @@ namespace Shinobi
         private readonly Collider[] standingOverlaps = new Collider[32];
         private float crouchSpeedMultiplier = 0.4f;
         private float dashRemaining, dashSpeed, dashDirection;
+        private float slideRemaining, slideSpeed, slideDirection, longJumpSpeed;
+        public bool Sliding => slideRemaining > 0;
+        public bool LongJumping { get; private set; }
         public bool Dashing => dashRemaining > 0f;
         public bool Crouching { get; private set; }
         private float moveSpeed, jumpHeight, gravity, arenaHalfWidth;
@@ -66,10 +69,23 @@ namespace Shinobi
             if (visual != null) visual.localRotation = Quaternion.Euler(0, Facing > 0 ? 90 : -90, 0);
         }
         public void CancelDash() { dashRemaining = 0f; }
+        public void StartSlide(float distance, float duration)
+        {
+            slideDirection = Facing; slideRemaining = Mathf.Max(0.01f, duration);
+            slideSpeed = Mathf.Max(0, distance) / slideRemaining; CancelDash();
+        }
+        public bool StartLongJump(float distance)
+        {
+            if (!Dashing || !Grounded || Crouching && !CanStand()) return false;
+            RestoreStanding(); CancelDash(); Jump(); LongJumping = true;
+            longJumpSpeed = Facing * Mathf.Max(0, distance) / (2 * VerticalSpeed / -gravity);
+            return true;
+        }
+        public void CancelSpecialMotion() { CancelDash(); slideRemaining = 0; LongJumping = false; }
         public void UpdateCrouch(bool requested, float heightRatio, float speedMultiplier)
         {
             crouchSpeedMultiplier = Mathf.Clamp01(speedMultiplier);
-            bool crouch = requested && Grounded;
+            bool crouch = (requested || Sliding) && Grounded;
             if (!crouch && Crouching && !CanStand()) crouch = true;
             if (crouch == Crouching) return;
             Crouching = crouch;
@@ -107,7 +123,9 @@ namespace Shinobi
         public void Move(float dt)
         {
             bool dashing = Dashing;
-            float horizontal = dashing ? dashDirection * dashSpeed * Mathf.Min(dt, dashRemaining)
+            bool sliding = Sliding;
+            float horizontal = sliding ? slideDirection * slideSpeed * Mathf.Min(dt, slideRemaining)
+                : LongJumping ? longJumpSpeed * dt : dashing ? dashDirection * dashSpeed * Mathf.Min(dt, dashRemaining)
                 : (AllowMovement ? Input.Move : 0f) * moveSpeed * (Crouching ? crouchSpeedMultiplier : 1f) * dt;
             float requestedX = transform.position.x + horizontal;
             float nextX = Mathf.Clamp(requestedX, -arenaHalfWidth, arenaHalfWidth);
@@ -115,12 +133,20 @@ namespace Shinobi
                 VerticalSpeed * dt, spawnPosition.z - transform.position.z));
             if ((collisions & CollisionFlags.Above) != 0 && VerticalSpeed > 0f) VerticalSpeed = 0f;
             if ((collisions & CollisionFlags.Below) != 0 && VerticalSpeed < 0f) StickToGround();
+            if (sliding) {
+                slideRemaining = Mathf.Max(0, slideRemaining - dt);
+                if ((collisions & CollisionFlags.Sides) != 0 || nextX != requestedX || !Grounded) slideRemaining = 0;
+            }
+            if (LongJumping) {
+                if ((collisions & CollisionFlags.Sides) != 0 || nextX != requestedX) longJumpSpeed = 0;
+                if (Grounded) LongJumping = false;
+            }
             if (dashing)
             {
                 dashRemaining = Mathf.Max(0, dashRemaining - dt);
                 if ((collisions & CollisionFlags.Sides) != 0 || nextX != requestedX) CancelDash();
             }
-            if (!dashing && AllowMovement && Moving)
+            if (!dashing && !sliding && !LongJumping && AllowMovement && Moving)
             {
                 Facing = Input.Move > 0f ? 1f : -1f;
                 if (visual != null) visual.localRotation = Quaternion.Euler(0f, Facing > 0f ? 90f : -90f, 0f);
@@ -130,7 +156,7 @@ namespace Shinobi
         {
             controller.enabled = false;
             transform.position = spawnPosition;
-            CancelDash();
+            CancelSpecialMotion();
             RestoreStanding();
             VerticalSpeed = 0f;
             Input = default;

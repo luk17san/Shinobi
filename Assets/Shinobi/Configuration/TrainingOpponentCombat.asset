@@ -17,6 +17,7 @@ MonoBehaviour:
   jumpKey: 37
   crouchKey: 33
   nextWeaponKey: 39
+  throwKey: 22
   dashDoubleTapWindow: 0.25
   autoBlock: 1
   maxStamina: 100
@@ -33,5 +34,10 @@ MonoBehaviour:
   drawSeparation: 2
   combo:
   - {fileID: 11400000, guid: 58a18ddd99bc6ae4c8f5957366e72bec, type: 2}
+  contextCombos:
+    standing: {fileID: 11400000, guid: 7da2e2fd5d3177347bd7720305d88def, type: 2}
+    crouching: {fileID: 11400000, guid: 906f6dcac90e0d8418a4cfef54c76aac, type: 2}
+    airborne: {fileID: 11400000, guid: a31337ae71660d54ca4e1c6527d48ff7, type: 2}
+    longJump: {fileID: 11400000, guid: 391ccad8c6b8d3548a4c5e87ba23683f, type: 2}
   jutsu:
   - {fileID: -6721730870136505212, guid: 9fa1c7d4d7dcb5843ab235e92b8c19dc, type: 2}

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9326b7b31f137642a54730a8984a750, type: 3}
   m_Name: Fala treningowa
   m_EditorClassIdentifier: Assembly-CSharp::Shinobi.ShinobiJutsuDefinition
+  displayName: 
+  description: 
   sequence: 000000000300000001000000i
   level: 1
   chakraCost: 20
@@ -20,7 +22,7 @@ MonoBehaviour:
   recovery: 0.3
   radius: 2
   forwardOffset: 2
-  animation: {fileID: -203655887218126122, guid: 8e68064455c729c4c8300a90f4a40bb6, type: 3}
+  animation: {fileID: 0}
   effect: {fileID: 0}
 --- !u!114 &-3036058877630469457
 MonoBehaviour:
@@ -45,7 +47,7 @@ MonoBehaviour:
     activeDuration: 0.08
     recovery: 0.25
     reach: 1.3
-  animation: {fileID: 0}
+  animation: {fileID: -203655887218126122, guid: 8fb09d18011dfe040beb030ed0e8841d, type: 3}
   effect: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -83,6 +85,11 @@ MonoBehaviour:
   - {fileID: -3036058877630469457}
   - {fileID: 1609093256144580831}
   - {fileID: 1372338861838225659}
+  contextCombos:
+    standing: {fileID: 11400000, guid: e666a1655f4a5d54a9de30aff5a1df8b, type: 2}
+    crouching: {fileID: 11400000, guid: 8abbc6bb55d5f2c42b173f10ab9d7832, type: 2}
+    airborne: {fileID: 11400000, guid: e7af60909ff34ea4985eae448a881086, type: 2}
+    longJump: {fileID: 11400000, guid: cc51da7d07181644db06b95ae2976bf4, type: 2}
   jutsu:
   - {fileID: -6721730870136505212}
 --- !u!114 &1372338861838225659
@@ -108,7 +115,7 @@ MonoBehaviour:
     activeDuration: 0.08
     recovery: 0.4
     reach: 1.6
-  animation: {fileID: 0}
+  animation: {fileID: -203655887218126122, guid: 8fb09d18011dfe040beb030ed0e8841d, type: 3}
   effect: {fileID: 0}
 --- !u!114 &1609093256144580831
 MonoBehaviour:
@@ -133,5 +140,5 @@ MonoBehaviour:
     activeDuration: 0.08
     recovery: 0.22
     reach: 1.4
-  animation: {fileID: 0}
+  animation: {fileID: -203655887218126122, guid: 0e2b54e992257464db16647438d36ee4, type: 3}
   effect: {fileID: 0}

@@ -6,6 +6,8 @@ namespace Shinobi
     [CreateAssetMenu(menuName = "Shinobi/Jutsu")]
     public sealed class ShinobiJutsuDefinition : ScriptableObject
     {
+        public string displayName;
+        [TextArea] public string description;
         public ShinobiSeal[] sequence = { ShinobiSeal.Up, ShinobiSeal.Right, ShinobiSeal.Down };
         [Min(1)] public int level = 1;
         [Min(0f)] public float chakraCost = 20f;

@@ -396,3 +396,26 @@ Weryfikacja: import i kompilacja Unity 6000.6.3f1, a następnie 46 automatycznyc
 
 Raport workspace: .verification/ThrowEvidence/Checks.txt. Log: .verification/WeaponModelsUnity/Throw-PlayFinal.log. Znany błąd startowego indeksowania UnityEditor.Search pojawił się w izolowanym edytorze; test wznowił Play Mode i zakończył się kodem 0. Po instalacji: Assets > Refresh, ponownie otworzyć TrainingArena, rozpocząć trening, wybrać broń przez Y i nacisnąć H.
 
+## 2026-10-17 — ataki kontekstowe, rozwinięcia dasha i edytor combo/jutsu
+
+- Dodano niski cios S+G, powtarzalny cios powietrzny G oraz silny cios G podczas dalekiego skoku. Ciosy powietrzne zachowują ruch i grawitację; lądowanie je przerywa. Niski cios utrzymuje kucanie do końca akcji, również po puszczeniu S.
+- Podczas dasha nowe S uruchamia bezpieczny kolizyjnie wślizg 2 m / 0,35 s, bez obrażeń i nietykalności. W uruchamia daleki skok około 6 m. Brak dodatkowego kosztu ponad dash. Niski sufit blokuje wstanie po wślizgu. Wszystkie parametry są edytowalne w ShinobiMovement.
+- Rzut H działa stojąc, w kucki i w locie. Przy wypuszczeniu celuje w środek collidera aktualnego żywego celu HUD w zasięgu; bez celu poziomo. Pocisk nie śledzi celu. Rzut powietrzny zachowuje ruch; rzut w kucki ma obniżony punkt wypuszczenia i utrzymuje kucanie na ziemi.
+- Nowy ShinobiComboDefinition i cztery konteksty w profilach/broniach. Wariant broni ma pierwszeństwo; brak wariantu dziedziczy profil. Starsze tablice są zachowane. Migracja stojącego combo zachowuje dotychczasowe ciosy, czasy i okna; nowe warianty mają osobne definicje.
+- Shinobi > Edytor walki > Combo/Jutsu: biblioteka, tworzenie i duplikowanie, kolejność ciosów, edycja parametrów/klipów/efektów, przypisanie do profilu lub broni, odłączanie oraz zapis. Duplikat combo otrzymuje własne kopie ciosów. Undo i blokada edycji podczas Play Mode. Edytor animacji pokazuje nowe konteksty oraz klipy wślizgu/dalekiego skoku.
+- Nie dodano przycisku ani ekranu katalogu w menu gry. Lista i instrukcja: COMBO_I_JUTSU.md. Eksport z edytora odświeża tylko znaczniki GENERATED i zachowuje ręczne plany. Kula ognia, Podmuch wiatru i Kamienna osłona to propozycje, bez wykonywalnych definicji.
+- Naprawiono istniejące odwołania instalatorów modeli/rzutów do brakującego ShinobiYBotSetup, wykorzystując obecne stałe ShinobiCombatIntegration.
+- Weryfikacja Unity 6000.6.3f1 na kopii WeaponModelsUnity: 12 kontroli edytora, 42 kontrole Play Mode nowych akcji i 46 regresji rzutów — PASS. Potwierdzono rzeczywiste obrażenia niskiego ciosu, wykonanie nowego jutsu z własną sekwencją/kosztem/obrażeniami, wielokrotne ciosy w locie, kolizje wślizgu pod sufitem, koszt, dystans skoku, pauzę, przerwania, aim i brak homingu. Osobna kompilacja runtime/Editor oraz testy HFSM na atrapach PASS.
+- Źródło testów: Verification~/ContextActionsCheck.cs; raporty workspace .verification/ContextActionsEvidence i ContextThrowRegression.log. Znany wyjątek indeksu Unity Search przy starcie kopii nie zatrzymał testów. Nie wykonano ręcznego sterowania w głównym edytorze ani oceny balansu. Nowe klipy animacji pozostają do dostarczenia; mechaniki korzystają z przypisanych klipów lub animacji zastępczych. Nie rozbudowano zachowania AI ani mapowania nowych gestów na padzie.
+
+Uruchomienie po imporcie: Assets > Refresh, ponownie otwórz TrainingArena i Play. Przy instalacji samych skryptów: Shinobi > Combo i jutsu > Przygotuj warianty i migruj combo. Dostarczone assety konfiguracji mają już wykonaną migrację.
+
+
+
+
+## 2026-10-17 — poprawka animacji ataku i rzutu
+- Sterownik aktualizuje animacje w LateUpdate, po mechanice akcji. Każdy nowy cios/rzut odtwarza stan od początku; wspólny licznik slotów obsługuje przejścia między rodzajami akcji. Podmieniany jest tylko klip nowej akcji.
+- Uzupełniono puste klipy ciosów dostępnymi Punching L/R; usunięto Throw Object z ciosów Shurikena. Klip rzutu pozostaje osobny. Brakujące klipy kontekstów/broni dziedziczą ciosy profilu.
+- Dedykowane animacje niskiego/powietrznego ciosu i silnego ciosu w skoku nadal do dostarczenia; obecne uderzenia są zastępcze.
+- Weryfikacja: kompilacja runtime/Editor PASS; 23 kontrole Animatora w Unity 6000.6.3f1 Play Mode PASS na kopii WeaponModelsUnity (wybór klipów, restart, tempo, przejścia cios/rzut i zachowanie poprzedniego slotu). Test wywołuje sterownik programowo, nie potwierdza ręcznej gry ani wyglądu modelu. Raport: .verification/ActionAnimationResults.txt, log ActionAnimationRetry.log w workspace ChatGPT/Shinobi.
+

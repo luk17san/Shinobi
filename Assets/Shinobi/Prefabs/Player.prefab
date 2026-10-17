@@ -1190,6 +1190,11 @@ MonoBehaviour:
   dashDuration: 0.15
   dashCooldown: 0.7
   dashStaminaCost: 20
+  slideDistance: 2
+  slideDuration: 0.35
+  longJumpDistance: 6
+  slideAnimation: {fileID: 0}
+  longJumpAnimation: {fileID: -203655887218126122, guid: 7ec79b868def4a444ae671d92f6f9252, type: 3}
 --- !u!114 &2481815685246258352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1281,7 +1286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shinobi.ShinobiWeaponInventory
   weapons:
-  - {fileID: 11400000, guid: 18d176e8f039c0b46bbd2060c4881531, type: 2}
+  - {fileID: 11400000, guid: b6a41353b66c70c48a26dd12d0f860b9, type: 2}
   - {fileID: 11400000, guid: b6a41353b66c70c48a26dd12d0f860b9, type: 2}
   - {fileID: 11400000, guid: 5b982d18ec723e64c86888c86ebced33, type: 2}
   - {fileID: 11400000, guid: d86fe9ff40b493f47a573d8bbaacbea4, type: 2}
@@ -1314,9 +1319,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Shinobi.ShinobiAnimationDriver
   animator: {fileID: 2434434592152261611}
   animations: {fileID: 11400000, guid: abc6e627b7cc5a34fb0b4a2dfaea76cd, type: 2}
-  attackSlotA: {fileID: 7400000, guid: c44601efdb6574c42911bf078c9ca7f2, type: 2}
-  attackSlotB: {fileID: 7400000, guid: 93bf96eefb9b00344a7ebd0ce4e2c1a8, type: 2}
-  jutsuSlot: {fileID: 7400000, guid: 2e5bbc5059cb7cc42ba7798ec2cce74f, type: 2}
+  attackSlotA: {fileID: -203655887218126122, guid: ff427ac817c63274892ce2de13a61697, type: 3}
+  attackSlotB: {fileID: -203655887218126122, guid: a57133f85a3bced4688ca5799e6bf836, type: 3}
+  jutsuSlot: {fileID: -203655887218126122, guid: 328f31158e24b60449ae19b2351f3ddf, type: 3}
 --- !u!114 &4359743742520768210
 MonoBehaviour:
   m_ObjectHideFlags: 0

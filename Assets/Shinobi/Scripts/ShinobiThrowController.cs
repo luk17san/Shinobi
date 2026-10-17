@@ -17,6 +17,7 @@ namespace Shinobi
         private Vector3 pendingScale;
         private float elapsed, facing, nextThrowTime = float.NegativeInfinity;
         private bool released;
+        public bool CrouchedThrow { get; private set; }
         public bool IsThrowing => pending != null;
         public float CooldownRemaining => Mathf.Max(0,nextThrowTime-Time.time);
         public AnimationClip ActiveAnimation => pending != null ? pending.animation : null;
@@ -28,7 +29,7 @@ namespace Shinobi
             && inventory.CurrentWeapon != null && inventory.CurrentWeapon.throwable
             && inventory.CurrentWeapon.throwing != null && inventory.CurrentWeapon.visualPrefab != null
             && combat != null && !combat.IsAttacking && (health == null || !health.Defeated)
-            && (movement == null || !movement.IsDashing) && (defense == null || !defense.GuardBroken)
+            && (movement == null || !movement.IsDashing && !movement.IsSliding) && (defense == null || !defense.GuardBroken)
             && (techniques == null || !techniques.Busy);
         private void Awake()
         {
@@ -42,6 +43,7 @@ namespace Shinobi
             var weapon=inventory.CurrentWeapon;
             pending=weapon.throwing.Snapshot();pendingVisual=weapon.visualPrefab;pendingScale=weapon.localScale;
             elapsed=0;released=false;facing=movement!=null?movement.Facing:1;
+            CrouchedThrow = movement != null && movement.IsCrouching;
             nextThrowTime=Time.time+Mathf.Max(.05f,pending.cooldown,pending.windup+pending.recovery);
             AnimationSequence++;
             return true;
@@ -60,7 +62,17 @@ namespace Shinobi
                     ? inventory.WeaponSocket.TransformPoint(inventory.CurrentWeapon.localPosition)
                     : transform.position+Vector3.up*(movement!=null && movement.IsCrouching?.7f:1.1f);
                 var projectile=new GameObject("Rzut - "+inventory.CurrentWeaponName).AddComponent<ShinobiThrownWeapon>();
-                projectile.Initialize(transform,origin,Vector3.right*(facing<0?-1:1),pendingVisual,pendingScale,pending,collisionMask);
+                if (CrouchedThrow) origin.y = Mathf.Min(origin.y, transform.position.y + 0.7f);
+                var direction = Vector3.right * (facing < 0 ? -1 : 1);
+                var target = ShinobiGameSession.TargetFor(transform);
+                if (target != null && target.gameObject.activeInHierarchy && !target.Defeated) {
+                    var collider = target.GetComponentInChildren<Collider>();
+                    var point = collider != null ? collider.bounds.center : target.transform.position + Vector3.up;
+                    point.z = origin.z;
+                    var offset = point - origin;
+                    if (offset.sqrMagnitude > 0.0001f && offset.magnitude <= pending.range) direction = offset.normalized;
+                }
+                projectile.Initialize(transform,origin,direction,pendingVisual,pendingScale,pending,collisionMask);
                 inventory.SetThrownVisualHidden(true);
                 Thrown?.Invoke(projectile);
             }
@@ -68,7 +80,7 @@ namespace Shinobi
         }
         public void CancelThrow()
         {
-            pending=null;pendingVisual=null;
+            pending=null;pendingVisual=null;CrouchedThrow=false;
             if(inventory!=null) inventory.SetThrownVisualHidden(false);
         }
         public void ResetThrowState()

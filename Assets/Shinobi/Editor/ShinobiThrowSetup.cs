@@ -51,17 +51,17 @@ namespace Shinobi.Editor
                 }
                 EditorUtility.SetDirty(weapon);
             }
-            var prefab=PrefabUtility.LoadPrefabContents(ShinobiYBotSetup.PrefabPath);
+            var prefab=PrefabUtility.LoadPrefabContents(ShinobiCombatIntegration.PrefabPath);
             try
             {
                 if(prefab.GetComponent<ShinobiThrowController>()==null) prefab.AddComponent<ShinobiThrowController>();
                 var profile=prefab.GetComponent<ShinobiCombat>().profile;
                 if(profile==null)throw new InvalidOperationException("Brak profilu gracza.");
                 EditorUtility.SetDirty(profile);
-                PrefabUtility.SaveAsPrefabAsset(prefab,ShinobiYBotSetup.PrefabPath);
+                PrefabUtility.SaveAsPrefabAsset(prefab,ShinobiCombatIntegration.PrefabPath);
             }
             finally {PrefabUtility.UnloadPrefabContents(prefab);}
-            var scene=EditorSceneManager.OpenScene(ShinobiYBotSetup.ScenePath,OpenSceneMode.Single);
+            var scene=EditorSceneManager.OpenScene(ShinobiCombatIntegration.ScenePath,OpenSceneMode.Single);
             var player=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<ShinobiMovement>(true))
                 .Single(p=>p.GetComponent<ShinobiTrainingOpponent>()==null);
             if(player.GetComponent<ShinobiThrowController>()==null)

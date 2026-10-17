@@ -7,6 +7,7 @@ namespace Shinobi
     {
         public string displayName = "Nowa bron";
         public ShinobiAttackDefinition[] combo = new ShinobiAttackDefinition[0];
+        public ShinobiContextCombos contextCombos = new ShinobiContextCombos();
         [Min(0.01f)] public float comboWindow = 0.5f;
         public GameObject visualPrefab;
         public Texture2D hudIcon;
@@ -21,6 +22,7 @@ namespace Shinobi
         {
             get
             {
+                if (contextCombos != null && contextCombos.standing != null && contextCombos.standing.IsUsable) return true;
                 if (combo == null || combo.Length == 0) return false;
                 foreach (var definition in combo) if (definition == null || definition.attack == null) return false;
                 return true;

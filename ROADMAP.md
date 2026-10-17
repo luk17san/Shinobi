@@ -61,3 +61,7 @@ Ustawienia obrony: Player > Shinobi Combat > Profile albo Shinobi > Edytor walki
 
 
 
+
+## 2026-10-17 — nowe akcje i edytor
+Ukończono prototyp ataków w kucki/powietrzu, wślizgu, dalekiego skoku z silnym ciosem oraz rzutów w kucki/locie. Edytor Unity: Shinobi > Edytor walki > Combo/Jutsu. Aktualna lista i plany: COMBO_I_JUTSU.md. Kolejne prace: docelowe animacje, ręczny balans i cele treningowe. Nowe typy jutsu pozostają propozycjami.
+

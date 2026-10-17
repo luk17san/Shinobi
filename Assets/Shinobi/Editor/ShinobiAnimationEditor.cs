@@ -74,7 +74,18 @@ namespace Shinobi.Editor
                 weapon = (ShinobiWeaponDefinition)EditorGUILayout.ObjectField("Bron", weapon, typeof(ShinobiWeaponDefinition), false);
                 var combat = character != null ? character.GetComponent<ShinobiCombat>() : null;
                 if (weapon != null) DrawAttacks(weapon.combo);
-                else if (combat != null && character.GetComponent<ShinobiWeaponInventory>() != null)
+                if (weapon != null) DrawContexts(weapon.contextCombos);
+                if (combat != null && combat.profile != null) DrawContexts(combat.profile.contextCombos);
+                if (character != null) {
+                    var movement = character.GetComponent<ShinobiMovement>();
+                    if (movement != null) {
+                        var motion = new SerializedObject(movement); motion.Update();
+                        EditorGUILayout.PropertyField(motion.FindProperty("slideAnimation"), new GUIContent("Wślizg"));
+                        EditorGUILayout.PropertyField(motion.FindProperty("longJumpAnimation"), new GUIContent("Daleki skok"));
+                        motion.ApplyModifiedProperties();
+                    }
+                }
+                if (weapon == null && combat != null && character.GetComponent<ShinobiWeaponInventory>() != null)
                 {
                     foreach (var entry in character.GetComponent<ShinobiWeaponInventory>().Weapons)
                         if (entry != null && GUILayout.Button("Edytuj ciosy: " + entry.displayName)) weapon = entry;
@@ -97,6 +108,14 @@ namespace Shinobi.Editor
             if (definitions == null) return;
             for (int i = 0; i < definitions.Length; i++)
                 if (definitions[i] != null) DrawClip(definitions[i], "Cios " + (i + 1) + ": " + definitions[i].name);
+        }
+        private static void DrawContexts(ShinobiContextCombos contexts)
+        {
+            if (contexts == null) return;
+            foreach (ShinobiAttackContext context in System.Enum.GetValues(typeof(ShinobiAttackContext))) {
+                var combo = contexts.Get(context); if (combo == null) continue;
+                EditorGUILayout.LabelField(context + ": " + combo.displayName, EditorStyles.boldLabel); DrawAttacks(combo.attacks);
+            }
         }
         private static void DrawClip(ScriptableObject definition, string label)
         {

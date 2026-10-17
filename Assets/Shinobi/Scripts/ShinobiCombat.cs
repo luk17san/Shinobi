@@ -40,7 +40,17 @@ namespace Shinobi
         public AnimationClip ActiveAnimation { get; private set; }
         public float ActiveAnimationDuration { get; private set; }
         public int AnimationSequence { get; private set; }
-        public AnimationClip GetAnimation(int index) => CurrentCombo != null && index >= 0 && index < CurrentCombo.Length && CurrentCombo[index] != null ? CurrentCombo[index].animation : null;
+        public AnimationClip GetAnimation(int index)
+        {
+            var combo = CurrentCombo;
+            if (combo != null && index >= 0 && index < combo.Length && combo[index] != null && combo[index].animation != null)
+                return combo[index].animation;
+            // Missing context/weapon clips inherit the character's standing punches.
+            var fallback = profile != null ? profile.combo : null;
+            if (fallback == null || fallback.Length == 0 || index < 0) return null;
+            int source = Context == ShinobiAttackContext.LongJump ? fallback.Length - 1 : index % fallback.Length;
+            return fallback[source] != null ? fallback[source].animation : null;
+        }
         private float attackFacing = 1f;
         public float Windup => Mathf.Max(0f, windup);
         public float ActiveDuration => Mathf.Max(0.01f, activeDuration);
@@ -49,14 +59,35 @@ namespace Shinobi
         {
             get { var inventory = GetComponent<ShinobiWeaponInventory>(); return inventory != null && inventory.isActiveAndEnabled ? inventory.CurrentWeapon : null; }
         }
-        private ShinobiAttackDefinition[] CurrentCombo => EquippedWeapon != null ? EquippedWeapon.combo : profile != null ? profile.combo : null;
-        public float ComboBuffer => EquippedWeapon != null ? Mathf.Max(0.01f, EquippedWeapon.comboWindow)
+        public ShinobiAttackContext Context { get; private set; }
+        public void SelectContext(ShinobiAttackContext context) { Context = context; }
+        public ShinobiComboDefinition ResolveCombo(ShinobiAttackContext context)
+        {
+            var definition = EquippedWeapon != null ? EquippedWeapon.contextCombos?.Get(context) : null;
+            if (definition != null && definition.IsUsable) return definition;
+            if (context == ShinobiAttackContext.Standing && EquippedWeapon != null && EquippedWeapon.combo != null && EquippedWeapon.combo.Length > 0) return null;
+            definition = profile != null ? profile.contextCombos?.Get(context) : null;
+            return definition != null && definition.IsUsable ? definition : null;
+        }
+        private ShinobiAttackDefinition[] LegacyCombo => EquippedWeapon != null ? EquippedWeapon.combo : profile != null ? profile.combo : null;
+        private ShinobiAttackDefinition[] CurrentCombo => ResolveCombo(Context) != null ? ResolveCombo(Context).attacks : Context == ShinobiAttackContext.Standing ? LegacyCombo : null;
+        public float ComboBuffer => ResolveCombo(Context) != null ? Mathf.Max(0.01f, ResolveCombo(Context).comboWindow) : EquippedWeapon != null ? Mathf.Max(0.01f, EquippedWeapon.comboWindow)
             : profile != null ? Mathf.Max(0.01f, profile.comboWindow) : Mathf.Clamp(comboBuffer, 0.01f, 0.5f);
         public int ComboLength => CurrentCombo != null && CurrentCombo.Length > 0
-            ? CurrentCombo.Length : 1 + (followUpAttacks == null ? 0 : followUpAttacks.Length);
+            ? CurrentCombo.Length : Context != ShinobiAttackContext.Standing ? 1 : 1 + (followUpAttacks == null ? 0 : followUpAttacks.Length);
         public ShinobiAttack GetAttack(int index)
         {
             if (index < 0 || index >= ComboLength) throw new System.ArgumentOutOfRangeException(nameof(index));
+            if (Context != ShinobiAttackContext.Standing && CurrentCombo == null)
+            {
+                var legacy = LegacyCombo;
+                int source = Context == ShinobiAttackContext.LongJump && legacy != null ? legacy.Length - 1 : 0;
+                var value = legacy != null && source >= 0 && source < legacy.Length && legacy[source] != null
+                    ? legacy[source].attack.Snapshot() : new ShinobiAttack();
+                if (Context == ShinobiAttackContext.Crouching) { value.hitCenterHeight = 0.6f; value.hitHeight = 0.6f; }
+                if (Context == ShinobiAttackContext.LongJump) { value.pushDistance = 1.5f; if (legacy == null || legacy.Length == 0) value.damage = 35; }
+                return value;
+            }
             var combo = CurrentCombo;
             if (combo != null && combo.Length > 0) {
                 var definition = combo[index];
@@ -103,6 +134,7 @@ namespace Shinobi
             hitPreview.gameObject.SetActive(visible);
         }
         public void EndAttack() { ShowActive(false); currentAttack = null; }
+        public void CancelAttack() { if (strike != null) strike.cancelled = true; EndAttack(); }
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;

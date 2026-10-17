@@ -51,7 +51,7 @@ namespace Shinobi
             && (GetComponent<ShinobiThrowController>() == null || !GetComponent<ShinobiThrowController>().IsThrowing)
             && ShinobiGameSession.GameplayInputAllowed
             && (techniques == null || !techniques.Busy) && (health == null || !health.Defeated) && (defense == null || !defense.GuardBroken)
-            && (movement == null || !movement.IsDashing);
+            && (movement == null || !movement.IsDashing && !movement.IsSliding);
 
         public bool TryEquipNext()
         {

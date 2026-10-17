@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="GameMenu.uss" />
+    <Style src="MenuArt.uss" />
+    <ui:VisualElement name="Screen" class="screen main-menu" picking-mode="Ignore">
+        <ui:VisualElement name="Overlay" class="overlay">
+            <ui:VisualElement name="MenuBackdrop" class="menu-backdrop" picking-mode="Ignore" />
+            <ui:VisualElement name="MenuPanel" class="menu-panel">
+                <ui:VisualElement name="MenuLogo" class="menu-logo" picking-mode="Ignore" />
+                <ui:Label text="DROGA WOJOWNIKA" class="menu-subtitle" />
+                <ui:Label name="Description" text="Arena treningowa&#10;Wybierz swobodny trening lub pojedynek z AI." class="description" />
+                <ui:Button name="StartTraining" text="Swobodny trening" />
+                <ui:Button name="StartDuel" text="Pojedynek z AI" />
+                <ui:Button name="Quit" text="Zakończ grę" />
+                <ui:Label text="ARENA TRENINGOWA" class="controls" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

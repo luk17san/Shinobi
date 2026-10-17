@@ -102,12 +102,12 @@ namespace Shinobi.Editor
                 finally { Object.DestroyImmediate(wrapper); }
                 CreateIcon(definitions[i],Names[i]);
             }
-            var prefabRoot = PrefabUtility.LoadPrefabContents(ShinobiYBotSetup.PrefabPath);
-            try { Configure(prefabRoot,definitions); PrefabUtility.SaveAsPrefabAsset(prefabRoot,ShinobiYBotSetup.PrefabPath); }
+            var prefabRoot = PrefabUtility.LoadPrefabContents(ShinobiCombatIntegration.PrefabPath);
+            try { Configure(prefabRoot,definitions); PrefabUtility.SaveAsPrefabAsset(prefabRoot,ShinobiCombatIntegration.PrefabPath); }
             finally { PrefabUtility.UnloadPrefabContents(prefabRoot); }
-            var scene = SceneManager.GetSceneByPath(ShinobiYBotSetup.ScenePath);
+            var scene = SceneManager.GetSceneByPath(ShinobiCombatIntegration.ScenePath);
             bool opened = !scene.IsValid() || !scene.isLoaded;
-            if (opened) scene = EditorSceneManager.OpenScene(ShinobiYBotSetup.ScenePath,OpenSceneMode.Additive);
+            if (opened) scene = EditorSceneManager.OpenScene(ShinobiCombatIntegration.ScenePath,OpenSceneMode.Additive);
             try
             {
                 var player = scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<ShinobiWeaponInventory>(true))

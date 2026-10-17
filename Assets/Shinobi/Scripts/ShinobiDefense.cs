@@ -53,7 +53,7 @@ namespace Shinobi
         }
         private bool CanBlock(Vector3 source)
         {
-            if (Profile == null || !Profile.autoBlock || health.Defeated || GuardBroken || movement == null || !movement.IsGrounded || movement.IsDashing
+            if (Profile == null || !Profile.autoBlock || health.Defeated || GuardBroken || movement == null || !movement.IsGrounded || movement.IsDashing || movement.IsSliding
                 || combat.IsAttacking || techniques != null && techniques.Busy
                 || GetComponent<ShinobiThrowController>() != null && GetComponent<ShinobiThrowController>().IsThrowing) return false;
             Vector3 direction = Vector3.ProjectOnPlane(source - transform.position, Vector3.up);

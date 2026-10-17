@@ -12,8 +12,9 @@ namespace Shinobi
         public bool Crouch { get; }
         public bool NextWeapon { get; }
         public bool ThrowWeapon { get; }
+        public bool CrouchPressed { get; }
         public int DirectionTap { get; }
-        public ShinobiInput(float move, bool jump, bool reset, bool attack = false, bool crouch = false, bool nextWeapon = false, int directionTap = 0, bool throwWeapon = false)
+        public ShinobiInput(float move, bool jump, bool reset, bool attack = false, bool crouch = false, bool nextWeapon = false, int directionTap = 0, bool throwWeapon = false, bool crouchPressed = false)
         {
             Move = Mathf.Clamp(move, -1f, 1f);
             Jump = jump;
@@ -23,6 +24,7 @@ namespace Shinobi
             NextWeapon = nextWeapon;
             DirectionTap = directionTap;
             ThrowWeapon = throwWeapon;
+            CrouchPressed = crouchPressed;
         }
         public static ShinobiInput Read(ShinobiCombatProfile profile = null)
         {
@@ -56,7 +58,8 @@ namespace Shinobi
                 jump |= gamepad.buttonSouth.wasPressedThisFrame;
                 attack |= gamepad.buttonWest.wasPressedThisFrame;
             }
-            return new ShinobiInput(move, jump, reset, attack, crouch, nextWeapon, directionTap, throwWeapon);
+            return new ShinobiInput(move, jump, reset, attack, crouch, nextWeapon, directionTap, throwWeapon,
+                keyboard != null && keyboard[profile != null ? profile.crouchKey : Key.S].wasPressedThisFrame);
         }
     }
 }

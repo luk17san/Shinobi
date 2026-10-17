@@ -13,9 +13,10 @@ namespace Shinobi.Editor
         private Object detail;
         private int tab;
         private Vector2 scroll;
+        private readonly ShinobiMoveCatalogGUI catalog = new ShinobiMoveCatalogGUI();
         [MenuItem("Shinobi/Edytor walki")]
         public static void Open() { GetWindow<ShinobiCombatEditor>("Edytor walki"); }
-        private void OnDisable() { if (detailEditor != null) DestroyImmediate(detailEditor); }
+        private void OnDisable() { if (detailEditor != null) DestroyImmediate(detailEditor); catalog.Dispose(); AssetDatabase.SaveAssets(); }
         private void OnGUI() {
             scroll = EditorGUILayout.BeginScrollView(scroll);
             using (new EditorGUI.DisabledScope(EditorApplication.isPlayingOrWillChangePlaymode)) {
@@ -31,7 +32,8 @@ namespace Shinobi.Editor
                         EditorGUILayout.HelpBox("Focus: W/D/S/A wprowadzaja pieczecie gora/prawo/dol/lewo. Puszczenie Focus wykonuje pasujace jutsu. Kazda pieczec wymaga nowego nacisniecia.", MessageType.Info);
                     }
                     if (tab == 1 || tab == 2) {
-                        Field(data, "comboWindow"); Field(data, "combo");
+                        if (profile.contextCombos == null || profile.contextCombos.standing == null) { Field(data, "comboWindow"); Field(data, "combo"); }
+                        else EditorGUILayout.HelpBox("Profil używa definicji combo. Edytuj serie i ciosy w zakładce Combo. Stare tablice zachowano dla zgodności.", MessageType.Info);
                         EditorGUILayout.HelpBox("Okno kontynuacji liczone od poczatku uderzenia. Nacisniecie jest buforowane do jego zakonczenia. Brak nacisniecia resetuje combo.", MessageType.Info);
                     }
                     if (tab == 2 || tab == 3) {
@@ -47,6 +49,7 @@ namespace Shinobi.Editor
                         EditorGUILayout.HelpBox("Automatyczny blok chroni z przodu na ziemi poza atakiem i jutsu. Jutsu i obrazenia rozstrzygnietego zderzenia omijaja garde. Za mala wytrzymalosc przelamuje blok.", MessageType.Info);
                     }
                     data.ApplyModifiedProperties();
+                    if (tab == 2 || tab == 3) catalog.Draw(profile, tab == 3);
                     if (tab == 1 && profile.combo != null) foreach (var attack in profile.combo) SelectDetail(attack);
                     if (tab == 3 && profile.jutsu != null) foreach (var technique in profile.jutsu) SelectDetail(technique);
                     detail = EditorGUILayout.ObjectField("Edytowana definicja", detail, typeof(ScriptableObject), false);

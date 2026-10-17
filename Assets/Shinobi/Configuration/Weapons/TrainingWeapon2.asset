@@ -23,7 +23,7 @@ MonoBehaviour:
     activeDuration: 0.08
     recovery: 0.4
     reach: 1.9000001
-  animation: {fileID: 0}
+  animation: {fileID: -203655887218126122, guid: 8fb09d18011dfe040beb030ed0e8841d, type: 3}
   effect: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -42,12 +42,32 @@ MonoBehaviour:
   - {fileID: 2023521665617499794}
   - {fileID: 7149848944509812249}
   - {fileID: -7086799935267050414}
+  contextCombos:
+    standing: {fileID: 11400000, guid: 62d1802806c4d9243923612869db3e72, type: 2}
+    crouching: {fileID: 0}
+    airborne: {fileID: 0}
+    longJump: {fileID: 0}
   comboWindow: 0.5
   visualPrefab: {fileID: 6027354435546533453, guid: 8e79fe80038a7a24c9a5f997efa45125, type: 3}
   hudIcon: {fileID: 2800000, guid: 278d6bb033bdce742a93d842e0c03132, type: 3}
   localPosition: {x: 0, y: 0, z: 0}
   localEulerAngles: {x: 0, y: 0, z: 90}
   localScale: {x: 1, y: 1, z: 1}
+  throwable: 0
+  throwing:
+    speed: 18
+    range: 15
+    damage: 20
+    cooldown: 0.7
+    windup: 0.24
+    recovery: 0.26
+    collisionRadius: 0.07
+    spin: 0
+    explosive: 0
+    explosionRadius: 1.5
+    explosionDamage: 40
+    animation: {fileID: 0}
+    explosionEffect: {fileID: 0}
 --- !u!114 &2023521665617499794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,7 +91,7 @@ MonoBehaviour:
     activeDuration: 0.08
     recovery: 0.25
     reach: 1.5999999
-  animation: {fileID: 0}
+  animation: {fileID: -203655887218126122, guid: 0e2b54e992257464db16647438d36ee4, type: 3}
   effect: {fileID: 0}
 --- !u!114 &7149848944509812249
 MonoBehaviour:
@@ -96,5 +116,5 @@ MonoBehaviour:
     activeDuration: 0.08
     recovery: 0.22
     reach: 1.7
-  animation: {fileID: 0}
+  animation: {fileID: -203655887218126122, guid: 8fb09d18011dfe040beb030ed0e8841d, type: 3}
   effect: {fileID: 0}

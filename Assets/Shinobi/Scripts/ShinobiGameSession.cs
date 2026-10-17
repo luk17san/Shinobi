@@ -24,6 +24,13 @@ namespace Shinobi
         public static bool GameplayInputAllowed => active==null || active.Phase==ShinobiSessionPhase.Playing && Time.frameCount>active.blockedUntilFrame;
         public static bool ShowGameplayHud => active==null || active.Phase==ShinobiSessionPhase.Playing;
         public static bool DuelActive => active!=null && active.IsDuel;
+        public ShinobiHealth CurrentTarget => (IsDuel || opponent != null && opponent.Running) && opponent != null
+            ? opponent.GetComponent<ShinobiHealth>() : trainingDummy != null && trainingDummy.activeInHierarchy ? trainingDummy.GetComponent<ShinobiHealth>() : null;
+        public static ShinobiHealth TargetFor(Transform owner) {
+            if (active == null) return null;
+            if (active.player != null && owner == active.player.transform) return active.CurrentTarget;
+            return active.player != null ? active.player.GetComponent<ShinobiHealth>() : null;
+        }
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetStatic() { active=null; }
         private void Awake()
@@ -39,8 +46,9 @@ namespace Shinobi
         {
             started=true;
             Bind("StartTraining",StartTraining); Bind("StartDuel",StartDuel); Bind("Resume",Resume);
-            Bind("Restart",RestartRound); Bind("ToMenu",ShowMenu); Bind("Quit",Quit); Bind("PauseButton",Pause);
-            ShowMenu();
+            Bind("Restart",RestartRound); Bind("ToMenu",ReturnToMainMenu); Bind("Quit",Quit); Bind("PauseButton",Pause);
+            if(ShinobiMainMenu.TryConsumeRequest(out bool duel)) StartRound(duel);
+            else ShowMenu();
         }
         private void OnEnable()
         {
@@ -105,6 +113,17 @@ namespace Shinobi
         {
             CancelActions(); IsDuel=false; Result=""; Phase=ShinobiSessionPhase.Menu;
             Time.timeScale=0; RefreshUi();
+        }
+        public void ReturnToMainMenu()
+        {
+            if(!UnityEngine.SceneManagement.SceneManager.GetSceneByPath(ShinobiMainMenu.MenuScene).isLoaded
+                && !Application.CanStreamedLevelBeLoaded(ShinobiMainMenu.MenuScene))
+            {
+                Debug.LogWarning("MainMenu is missing from Build Settings; showing the local menu.",this);
+                ShowMenu(); return;
+            }
+            CancelActions(); Time.timeScale=1;
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(ShinobiMainMenu.MenuScene);
         }
         private void ClearGestures()
         {

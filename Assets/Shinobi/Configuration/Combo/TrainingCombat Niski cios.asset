@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8022970965644926007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44dcbb7cec019e4baa57a59c630ed12, type: 3}
+  m_Name: Niski cios
+  m_EditorClassIdentifier: Assembly-CSharp::Shinobi.ShinobiAttackDefinition
+  attack:
+    level: 1
+    pushDistance: 0
+    hitHeight: 0.6
+    hitDepth: 0.8
+    hitCenterHeight: 0.6
+    damage: 20
+    windup: 0.12
+    activeDuration: 0.08
+    recovery: 0.25
+    reach: 1.3
+  animation: {fileID: -203655887218126122, guid: 8fb09d18011dfe040beb030ed0e8841d, type: 3}
+  effect: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba54cd0ceed6bd4e953e5d53df8d922, type: 3}
+  m_Name: TrainingCombat Niski cios
+  m_EditorClassIdentifier: Assembly-CSharp::Shinobi.ShinobiComboDefinition
+  displayName: TrainingCombat Niski cios
+  description: 
+  comboWindow: 0.5
+  attacks:
+  - {fileID: -8022970965644926007}
